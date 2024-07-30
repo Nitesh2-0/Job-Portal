@@ -9,7 +9,7 @@
     "start": "node index.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Nitesh_Kumar",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.1",
