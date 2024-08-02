@@ -3,18 +3,23 @@ import { Label } from '../ui/label';
 import { Input } from '../ui/input';
 import { RadioGroup } from '../ui/radio-group';
 import { Button } from '../ui/button';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { toast } from 'sonner';
+import { BASE_URL_FOR_USER } from '../../utils/axios';
 
 const Signup = () => {
 
   const [input, setInput] = useState({
-    fullname: "",
+    fullName: "",
     email: "",
     phoneNumber: "",
     password: "",
     role: "",
     file: "",
   })
+
+  const navigate = useNavigate();
 
   const changeEventHandler = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -26,8 +31,33 @@ const Signup = () => {
 
   const signupHandler = async (e) => {
     e.preventDefault();
-    console.log(input);
-  }
+    try {
+      const formData = new FormData();
+      formData.append("fullName", input.fullName);
+      formData.append("email", input.email);
+      formData.append("phoneNumber", input.phoneNumber);
+      formData.append("password", input.password);
+      formData.append("role", input.role);
+      formData.append("file", input.file);
+
+      const res = await axios.post(`${BASE_URL_FOR_USER}register`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        },
+        withCredentials: true
+      });
+
+      if (res.data.success) {
+        toast.success(res.data.message);
+        navigate('/login')
+      }
+      console.log(res.data);
+    } catch (error) {
+      toast.error(error.response?.data?.message || 'An error occurred');
+      console.log(error);
+    }
+  };
+
 
   return (
     <div className='w-full lg:max-w-7xl flex items-center justify-center mx-auto'>
@@ -35,7 +65,7 @@ const Signup = () => {
         <h1 className='text-2xl text-center font-semibold'>SignUp</h1>
         <div>
           <Label>Full Name</Label>
-          <Input type="text" name="fullname" value={input.fullname} onChange={changeEventHandler} placeholder="Nitesh Kumar" className="mt-1 mb-2" />
+          <Input type="text" name="fullName" value={input.fullName} onChange={changeEventHandler} placeholder="Nitesh Kumar" className="mt-1 mb-2" />
         </div>
         <div>
           <Label>Email</Label>

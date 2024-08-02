@@ -4,13 +4,13 @@ import { Link } from 'react-router-dom'
 import { Button } from '../ui/button'
 import { LogOut, User2 } from 'lucide-react'
 const Navbar = () => {
-  let user = true;
+  let user = false;
   return (
     <div className='bg-white shadow-md '>
       <div className='mx-auto max-w-7xl flex items-center justify-between p-4 '>
         <div className='flex gap-2 items-center'>
           <i className="ri-blaze-fill text-red-500 text-3xl"></i>
-          <Link to="/"><h1 className='text-3xl font-semibold'>Job<span>Pulse</span></h1></Link>
+          <Link to="/"><h1 className='text-2xl md:text-3xl font-semibold'>Job<span>Pulse</span></h1></Link>
         </div>
         <div className='flex items-center gap-5'>
           <ul className='hidden lg:flex gap-10'>
@@ -22,8 +22,8 @@ const Navbar = () => {
           {
             !user ? (
               <div className='flex gap-4'>
-                <Link to="/login"><Button className="px-5 text-white hover:bg-gray-700 bg-gray-600" variant="outlier">Login</Button></Link>
-                <Link to="/signup"><Button className="px-5 text-white hover:bg-blue-600 bg-blue-500" variant="outlier">Singup</Button></Link>
+                <Link to="/login"><Button className="md:px-5 text-white hover:bg-gray-700 bg-gray-600" variant="outlier">Login</Button></Link>
+                <Link to="/signup"><Button className="md:px-5 text-white hover:bg-blue-600 bg-blue-500" variant="outlier">Singup</Button></Link>
               </div>
             ) : (
               <Popover>

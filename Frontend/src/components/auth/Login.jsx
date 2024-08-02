@@ -3,9 +3,13 @@ import { Label } from '../ui/label';
 import { Input } from '../ui/input';
 import { RadioGroup } from '../ui/radio-group';
 import { Button } from '../ui/button';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
+import { BASE_URL_FOR_USER } from '../../utils/axios'
+import axios from 'axios';
 
 const Login = () => {
+  const navigate = useNavigate()
   const [input, setInput] = useState({
     email: "",
     password: "",
@@ -19,7 +23,23 @@ const Login = () => {
   const loginEventHandler = async (e) => {
     e.preventDefault();
     console.log(input);
-  }
+    try {
+      const res = await axios.post(`${BASE_URL_FOR_USER}login`, input, {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true
+      });
+
+      if (res.data.success) {
+        toast.success(res.data?.message || 'Login Successfully 🎉')
+        navigate('/')
+      }
+      console.log(res.data);
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response?.data?.message || 'An error occurred 👿');
+    }
+  };
+
   return (
     <div className='w-full lg:max-w-7xl flex items-center justify-center lg:mx-auto'>
       <form onSubmit={loginEventHandler} className='w-[80%] lg:w-1/2 border border-gray-200 rounded-md p-4 my-10'>
@@ -45,7 +65,7 @@ const Login = () => {
           </RadioGroup>
         </div>
         <Button type="submit" className="w-full p-2 mb-3">Login</Button>
-        <span className='text-sm text-muted-foreground mt-5 mb-5'>Don't have an accoun? <Link to="/signup" className="text-blue-600">Login Here</Link></span>
+        <span className='text-sm text-muted-foreground mt-5 mb-5'>Don't have an accoun? <Link to="/signup" className="text-blue-600">SignUp Here</Link></span>
       </form>
     </div>
   )
