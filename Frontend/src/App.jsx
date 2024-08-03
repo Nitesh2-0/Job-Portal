@@ -4,6 +4,7 @@ import Navbar from './components/shared/Navbar';
 import Home from './components/shared/Home'
 import Login from './components/auth/Login';
 import Signup from './components/auth/Signup';
+import Footer from './components/Footer';
 
 const App = () => {
   return (

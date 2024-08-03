@@ -7,6 +7,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'sonner';
 import { BASE_URL_FOR_USER } from '../../utils/axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { setLoading } from '@/redux/authSlice';
+import { Loader2 } from 'lucide-react';
 
 const Signup = () => {
 
@@ -20,6 +23,8 @@ const Signup = () => {
   })
 
   const navigate = useNavigate();
+  const dispathch = useDispatch();
+  const { loading } = useSelector(store => store.auth);
 
   const changeEventHandler = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -32,6 +37,8 @@ const Signup = () => {
   const signupHandler = async (e) => {
     e.preventDefault();
     try {
+
+      dispathch(setLoading(true))
       const formData = new FormData();
       formData.append("fullName", input.fullName);
       formData.append("email", input.email);
@@ -55,6 +62,8 @@ const Signup = () => {
     } catch (error) {
       toast.error(error.response?.data?.message || 'An error occurred');
       console.log(error);
+    } finally {
+      dispathch(setLoading(false))
     }
   };
 
@@ -95,7 +104,9 @@ const Signup = () => {
             </div>
           </RadioGroup>
         </div>
-        <Button type="submit" className="w-full p-2 mb-3  bg-blue-600 hover:bg-blue-700">Signup</Button>
+        {
+          loading ? <Button type="submit" className="w-full p-2 mb-3  bg-blue-600 hover:bg-blue-700"><Loader2 className='mr-2 h-4 w-4 animate-spin' />⚡ Please wait for a while. </Button> : <Button type="submit" className="w-full p-2 mb-3  bg-blue-600 hover:bg-blue-700">Signup</Button>
+        }
         <span className='text-sm text-muted-foreground mt-5 mb-5'>Already have an accoun? <Link to="/login" className="text-blue-600">Login Here</Link></span>
       </form>
     </div>

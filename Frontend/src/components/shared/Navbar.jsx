@@ -9,14 +9,13 @@ const Navbar = () => {
     <div className='bg-white shadow-md '>
       <div className='mx-auto max-w-7xl flex items-center justify-between p-4 '>
         <div className='flex gap-2 items-center'>
-          <i className="ri-blaze-fill text-red-500 text-3xl"></i>
-          <Link to="/"><h1 className='text-2xl md:text-3xl font-semibold'>Job<span>Pulse</span></h1></Link>
+          <Link to="/"><h1 className='font-bold text-xl'> <i className="ri-blaze-fill text-red-500 text-3xl mr-1"></i>PlacementHoga</h1></Link>
         </div>
         <div className='flex items-center gap-5'>
           <ul className='hidden lg:flex gap-10'>
-            <li className="font-semibold"><Link>Home</Link></li>
-            <li className="font-semibold"><Link>Jobs</Link></li>
-            <li className="font-semibold"><Link>Browser</Link></li>
+            <li className="font-semibold"><Link to="/">Home</Link></li>
+            <li className="font-semibold"><Link to="/jobs">Jobs</Link></li>
+            <li className="font-semibold"><Link to="/browse">Browse</Link></li>
           </ul>
 
           {
