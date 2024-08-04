@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { Button } from '../ui/button'
 import { LogOut, User2 } from 'lucide-react'
 const Navbar = () => {
-  let user = false;
+  let user = true;
   return (
     <div className='bg-white shadow-md '>
       <div className='mx-auto max-w-7xl flex items-center justify-between p-4 '>
