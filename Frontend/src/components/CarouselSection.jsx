@@ -32,7 +32,7 @@ const CarouselSection = () => {
               key={index}
               className="basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/3 xl:basis-1/3 p-5  xl:p-4 "
             >
-              <Button className="text-gray-700 bg-transparent border hover:text-white hover:bg-blue-500 w-full">
+              <Button className="text-black bg-transparent border hover:bg-gray-100 w-full">
                 <span className="text-base font-semibold">{item}</span>
               </Button>
             </CarouselItem>

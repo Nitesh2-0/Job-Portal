@@ -1,10 +1,11 @@
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import { Button } from '../ui/button'
 import { LogOut, User2 } from 'lucide-react'
+import { useSelector } from 'react-redux'
 const Navbar = () => {
-  let user = true;
+  let { user } = useSelector(store => store.auth);
   return (
     <div className='bg-white shadow-md '>
       <div className='mx-auto max-w-7xl flex items-center justify-between p-4 '>
@@ -13,9 +14,9 @@ const Navbar = () => {
         </div>
         <div className='flex items-center gap-5'>
           <ul className='hidden lg:flex gap-10'>
-            <li className="font-semibold"><Link to="/">Home</Link></li>
-            <li className="font-semibold"><Link to="/jobs">Jobs</Link></li>
-            <li className="font-semibold"><Link to="/browse">Browse</Link></li>
+            <li className="font-semibold"><NavLink className={(e) => e.isActive ? `text-indigo-600 border-b-2 border-indigo-700` : ""} to="/">Home</NavLink></li>
+            <li className="font-semibold"><NavLink className={(e) => e.isActive ? `text-indigo-600 border-b-2 border-indigo-700` : ""} to="/jobs">Jobs</NavLink></li>
+            <li className="font-semibold"><NavLink className={(e) => e.isActive ? `text-indigo-600 border-b-2 border-indigo-700` : ""} to="/browse">Browse</NavLink></li>
           </ul>
 
           {
@@ -40,7 +41,7 @@ const Navbar = () => {
                   <hr />
                   <div className='px-6 mt-2 flex items-center bg-white'>
                     <User2 />
-                    <Button variant="link">Profile</Button>
+                    <Button variant="link"><Link to="/profile">Profile</Link></Button>
                   </div>
 
                   <div className='px-6 flex items-center bg-white'>

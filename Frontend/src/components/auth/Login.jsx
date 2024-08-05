@@ -8,12 +8,13 @@ import { toast } from 'sonner';
 import { BASE_URL_FOR_USER } from '../../utils/axios'
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { setLoading } from '@/redux/authSlice';
+import { setLoading, setUser } from '@/redux/authSlice';
 import { Loader2 } from 'lucide-react';
 
 const Login = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch();
+
   const { loading } = useSelector(store => store.auth)
   const [input, setInput] = useState({
     email: "",
@@ -36,6 +37,7 @@ const Login = () => {
       });
 
       if (res.data.success) {
+        dispatch(setUser(res.data.user))
         toast.success(res.data?.message || 'Login Successfully 🎉')
         navigate('/')
       }
