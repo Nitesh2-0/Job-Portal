@@ -7,7 +7,8 @@ import Footer from './Footer';
 import UpdateProfile from './UpdateProfile';
 
 const Profile = () => {
-  const skills = ["react", "redux", "typescript", "mongodb", "graphql", "docker", "kubernetes", "aws", "azure", "python", "java", "c++", "rust", "golang", "swift", "kotlin"];
+  const skills = "react, redux, typescript, mongodb, graphql, docker, kubernetes, aws, azure, python, java, c++, rust, golang, swift, kotlin"
+
   return (
     <>
       <div className='md:w-[80%] lg:w-[60%] mx-auto p-2'>
@@ -27,7 +28,7 @@ const Profile = () => {
           <div className='mb-4 mt-1 md:mt-0' >
             <p className='mb-1 font-semibold'>Skills</p>
             {
-              skills.map((item, idx) => (
+              skills.split(',').map((item, idx) => (
                 <Button variant="outline" className="m-1" key={idx}>{item}</Button>
               ))
             }

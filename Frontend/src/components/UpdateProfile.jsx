@@ -1,25 +1,47 @@
-import React from 'react'
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from './ui/dialog'
-import { Button } from './ui/button'
-import { Label } from './ui/label'
-import { Input } from './ui/input'
-import { Textarea } from './ui/textarea'
+import React, { useState } from 'react';
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from './ui/dialog';
+import { Button } from './ui/button';
+import { Label } from './ui/label';
+import { Input } from './ui/input';
 
 const UpdateProfile = () => {
+  const [input, setInput] = useState({
+    fullname: "",
+    email: "",
+    phoneNumber: "",
+    skills: "",
+    description: "",
+    file: null
+  });
+
+  const handleChange = (e) => {
+    setInput({ ...input, [e.target.name]: e.target.value });
+  };
+
+  const handleFileEvent = (e) => {
+    setInput({ ...input, file: e.target.files[0] });
+  };
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    console.log(input);
+  };
+
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline"> <i className="ri-pencil-line font-semibold"></i></Button>
+        <Button variant="outline">
+          <i className="ri-pencil-line font-semibold"></i>
+        </Button>
       </DialogTrigger>
-      <form action="">
-        <DialogContent className="sm:max-w-[425px]">
-          <DialogHeader>
-            <DialogTitle>Edit profile</DialogTitle>
-            <DialogDescription>
-              Listen. according to given rule fill the data.
-              fill skills seprate with ,
-            </DialogDescription>
-          </DialogHeader>
+      <DialogContent className="sm:max-w-[425px]">
+        <DialogHeader>
+          <DialogTitle>Edit Profile</DialogTitle>
+          <DialogDescription>
+            Fill out the information below. Separate skills with commas.
+          </DialogDescription>
+        </DialogHeader>
+        <form onSubmit={submitHandler}>
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="name" className="text-right">
@@ -27,42 +49,90 @@ const UpdateProfile = () => {
               </Label>
               <Input
                 id="name"
-                defaultValue="Pedro Duarte"
+                type="text"
+                name="fullname"
+                value={input.fullname}
+                onChange={handleChange}
+                placeholder="Enter your full name"
                 className="col-span-3"
               />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="username" className="text-right">
-                Description
+              <Label htmlFor="email" className="text-right">
+                Email
               </Label>
               <Input
-                id="username"
-                defaultValue="@peduarte"
+                type="email"
+                name="email"
+                value={input.email}
+                onChange={handleChange}
+                placeholder="Enter your email"
                 className="col-span-3"
               />
             </div>
-            <div className="flex items-center gap-8 justify-between">
-              <p className='ml-7 font-semibold'>Skills</p>
-              <textarea className='row-span-4 rounded border w-full p-1 col-span-3' placeholder='Add Skills, like react,javascript,node ' />
-            </div>
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="username" className="text-right">
-                Username
+              <Label htmlFor="number" className="text-right">
+                Number
               </Label>
               <Input
-                id="username"
-                defaultValue="@peduarte"
+                id="number"
+                type="tel"
+                name="phoneNumber"
+                value={input.phoneNumber}
+                onChange={handleChange}
+                placeholder="Enter your phone number"
+                className="col-span-3"
+              />
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="skills" className="text-right">
+                Skills
+              </Label>
+              <textarea
+                id="skills"
+                type="text"
+                name="skills"
+                value={input.skills}
+                onChange={handleChange}
+                className="col-span-3 rounded border p-1"
+                placeholder="Add skills, e.g., React, JavaScript, Node"
+              />
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="bio" className="text-right">
+                Bio
+              </Label>
+              <textarea
+                id="bio"
+                type="text"
+                name="description"
+                value={input.description}
+                onChange={handleChange}
+                className="col-span-3 rounded border p-1"
+                placeholder="Write a short bio"
+              />
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="picture" className="text-right">
+                Picture
+              </Label>
+              <Input
+                id="picture"
+                type="file"
+                name="file"
+                accept="file/*"
+                onChange={handleFileEvent}
                 className="col-span-3"
               />
             </div>
           </div>
           <DialogFooter>
-            <Button className="w-full" type="submit">Save changes</Button>
+            <Button className="w-full bg-indigo-600 hover:bg-indigo-700" type="submit">Save Changes</Button>
           </DialogFooter>
-        </DialogContent>
-      </form>
+        </form>
+      </DialogContent>
     </Dialog>
-  )
-}
+  );
+};
 
-export default UpdateProfile
+export default UpdateProfile;
