@@ -7,7 +7,7 @@ export const register = async (req, res) => {
     const { fullName, email, password, role, phoneNumber } = req.body;
     if (!fullName || !email || !password || !role || !phoneNumber) {
       return res.status(400).json({
-        message: "something is missing! 👿",
+        message: "something is missing! ",
         success: false
       })
     }
@@ -38,21 +38,21 @@ export const login = async (req, res) => {
     const { email, password, role } = req.body;
     if (!email || !password || !role) {
       return res.status(400).json({
-        message: "something is missing! 👿",
+        message: "something is missing!",
         success: false
       })
     }
     let user = await User.findOne({ email });
     if (!user) {
       return res.status(400).json({
-        message: "Incorrect email or password.❌",
+        message: "Incorrect email or password.",
         success: false,
       })
     }
     const isPasswordMatch = bcrypt.compare(password, user.password);
     if (!isPasswordMatch) {
       return res.status(400).json({
-        message: "Incorrect email or password.❌",
+        message: "Incorrect email or password.",
         success: false,
       })
     }
@@ -60,7 +60,7 @@ export const login = async (req, res) => {
     if (!(user.role === role)) {
       if (!isPasswordMatch) {
         return res.status(400).json({
-          message: "Select Currect role.❌",
+          message: "Select Currect role.",
           success: false,
         })
       }
@@ -110,20 +110,27 @@ export const logout = async (req, res) => {
 export const profileUpdate = async (req, res) => {
   try {
     const { fullName, email, phoneNumber, bio, skills } = req.body;
+    console.log(fullName, email, phoneNumber, bio, skills);
+
     const file = req.file
 
     //cloudnary for file update
+    let skillsArray;
+    if (skills) {
+      skillsArray = skills.split(',').map(skill => skill.trim());
+    }
 
-    let skillsArray
-    if (skills) { skillsArray = skills.split(',') }
-    const userId = req.id //get from middleware 
+    const userId = req.id; 
     let user = await User.findById(userId);
 
-    if (fullName) user.fullname = fullName
-    if (email) user.email = email
-    if (phoneNumber) user.phoneNumber = phoneNumber
-    if (bio) user.profile.bio = bio
-    if (skills) user.skills = skillsArray
+    if (fullName) user.fullname = fullName;
+    if (email) user.email = email;
+    if (phoneNumber) user.phoneNumber = phoneNumber;
+    if (bio) user.profile.bio = bio;
+    if (skillsArray && skillsArray.length > 0) user.profile.skills = skillsArray;
+
+    console.log(skillsArray);
+    
 
     // something for resume 
     await user.save();
