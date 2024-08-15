@@ -3,14 +3,22 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Button } from './ui/button';
 import { Label } from './ui/label';
 import { Input } from './ui/input';
+import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
+import { BASE_URL_FOR_USER } from '../utils/axios';
+import { toast } from 'sonner';
+import { setUser } from '../redux/authSlice';
 
 const UpdateProfile = () => {
+  const { user } = useSelector(store => store.auth);
+  const dispatch = useDispatch();
+
   const [input, setInput] = useState({
-    fullname: "",
-    email: "",
-    phoneNumber: "",
-    skills: "",
-    description: "",
+    fullname: user?.fullname || "",
+    email: user?.email || "",
+    phoneNumber: user?.phoneNumber || "",
+    skills: user?.profile?.skills?.map(skill => skill) || "",
+    description: user?.profile?.bio || "",
     file: null
   });
 
@@ -22,10 +30,34 @@ const UpdateProfile = () => {
     setInput({ ...input, file: e.target.files[0] });
   };
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
+    const formData = new FormData();
+    formData.append("fullName", input.fullname);
+    formData.append("email", input.email);
+    formData.append("phoneNumber", input.phoneNumber);
+    formData.append("bio", input.description);
+    formData.append("skills", input.skills);
+    if (input.file) {
+      formData.append("file", input.file);
+    }
+    try {
+      const res = await axios.post(`${BASE_URL_FOR_USER}/profile/update`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        },
+        withCredentials: true
+      });
+      if (res.data.success) {
+        dispatch(setUser(res.data.user));
+        toast.success(res.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response.data.message);
+    }
     console.log(input);
-  };
+  }
 
   return (
     <Dialog>
@@ -62,6 +94,7 @@ const UpdateProfile = () => {
                 Email
               </Label>
               <Input
+                id="email"
                 type="email"
                 name="email"
                 value={input.email}
@@ -72,7 +105,7 @@ const UpdateProfile = () => {
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="number" className="text-right">
-                Number
+                Phone Number
               </Label>
               <Input
                 id="number"
@@ -90,7 +123,6 @@ const UpdateProfile = () => {
               </Label>
               <textarea
                 id="skills"
-                type="text"
                 name="skills"
                 value={input.skills}
                 onChange={handleChange}
@@ -104,7 +136,6 @@ const UpdateProfile = () => {
               </Label>
               <textarea
                 id="bio"
-                type="text"
                 name="description"
                 value={input.description}
                 onChange={handleChange}
@@ -120,7 +151,7 @@ const UpdateProfile = () => {
                 id="picture"
                 type="file"
                 name="file"
-                accept="file/*"
+                accept="application/pdf"
                 onChange={handleFileEvent}
                 className="col-span-3"
               />

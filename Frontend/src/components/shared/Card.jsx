@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 
 const Card = () => {
   return (
-    <Link to="/details" className='shadow-md p-4 bg-gray-50 rounded-sm'>
+    <Link to="/details" className='shadow-md p-4 rounded-sm'>
       <div className='flex justify-between'>
         <span className='text-sm text-muted-foreground'>2 day ago</span>
         <Badge variant="outline" className="py-2"> <i className="ri-heart-line cursor-pointer"></i></Badge>

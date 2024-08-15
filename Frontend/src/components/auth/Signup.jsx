@@ -58,7 +58,6 @@ const Signup = () => {
         toast.success(res.data.message);
         navigate('/login')
       }
-      console.log(res.data);
     } catch (error) {
       toast.error(error.response?.data?.message || 'An error occurred');
       console.log(error);

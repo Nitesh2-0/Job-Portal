@@ -10,7 +10,7 @@ const Navbar = () => {
     <div className='bg-white shadow-md '>
       <div className='mx-auto max-w-7xl flex items-center justify-between p-4 '>
         <div className='flex gap-2 items-center'>
-          <Link to="/"><h1 className='font-bold text-xl'> <i className="ri-blaze-fill text-red-500 text-3xl mr-1"></i>PlacementHoga</h1></Link>
+          <Link to="/"><h1 className='font-bold text-xl'> <i className="ri-blaze-fill text-red-500 text-3xl"></i>PlacementHoga</h1></Link>
         </div>
         <div className='flex items-center gap-5'>
           <ul className='hidden lg:flex gap-10'>
@@ -22,8 +22,8 @@ const Navbar = () => {
           {
             !user ? (
               <div className='flex gap-4'>
-                <Link to="/login"><Button className="md:px-5 text-white hover:bg-gray-700 bg-gray-600" variant="outlier">Login</Button></Link>
-                <Link to="/signup"><Button className="md:px-5 text-white hover:bg-blue-600 bg-blue-500" variant="outlier">Singup</Button></Link>
+                <Link to="/login"><Button  className="md:px-5 border hover:text-white  md:text-black hover:bg-gray-700 " variant="outlier">Login</Button></Link>
+                <Link to="/signup"><Button className="md:px-5 border hover:text-white md:text-white hover:bg-blue-600 md:bg-blue-500" variant="outlier">Singup</Button></Link>
               </div>
             ) : (
               <Popover>
