@@ -9,7 +9,6 @@ import UpdateProfile from './UpdateProfile';
 
 const Profile = () => {
   const { user } = useSelector(store => store.auth);
-  const skills = "react, redux, typescript, mongodb, graphql, docker, kubernetes, aws, azure, python, java, c++, rust, golang, swift, kotlin"
 
   return (
     <>
@@ -30,18 +29,20 @@ const Profile = () => {
           <div className='mb-4 mt-1 md:mt-0' >
             <p className='mb-1 font-semibold'>Skills</p>
             {
-              user?.profile?.skills.map((item, idx) => (
-                <Button variant="outline" className="m-1" key={idx}>{item}</Button>
+              user?.profile?.skills.length != 0 && user?.profile?.skills.map((item, idx) => (
+                <Button variant="outline" className="m-1" key={idx}>{
+                  item
+                }</Button>
               ))
             }
           </div>
           <div className='flex items-center gap-5 mb-2'>
             <Mail className='text-gray-500' />
-            <span className='text-gray-700'>{user?.email || "example@gmail.com"}</span>
+            <span className='text-gray-700'>{user?.email || "NA"}</span>
           </div>
           <div className='flex items-center gap-5 mb-2'>
             <Contact className='text-gray-500' />
-            <span className='text-gray-700'>+91 {user?.phoneNumbe || "9155061725"}</span>
+            <span className='text-gray-700'> +91 {user?.phoneNumber || "NA"}</span>
           </div>
           <div className='flex items-center gap-5 mb-2'>
             <Link to='/profile/resume' className='flex items-center text-blue-500 hover:underline'>
