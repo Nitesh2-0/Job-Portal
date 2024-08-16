@@ -7,10 +7,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { BASE_URL_FOR_USER } from '../utils/axios';
 import { toast } from 'sonner';
-import { setUser } from '../redux/authSlice';
+import { setLoading, setUser } from '../redux/authSlice';
+import { Loader2 } from 'lucide-react';
 
 const UpdateProfile = () => {
-  const { user } = useSelector(store => store.auth);
+  const { user, loading } = useSelector(store => store.auth);
   const dispatch = useDispatch();
 
   const [input, setInput] = useState({
@@ -42,6 +43,7 @@ const UpdateProfile = () => {
       formData.append("file", input.file);
     }
     try {
+      dispatch(setLoading(true))
       const res = await axios.post(`${BASE_URL_FOR_USER}/profile/update`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
@@ -55,6 +57,8 @@ const UpdateProfile = () => {
     } catch (error) {
       console.log(error);
       toast.error(error.response.data.message);
+    } finally {
+      dispatch(setLoading(false))
     }
     console.log(input);
   }
@@ -158,7 +162,9 @@ const UpdateProfile = () => {
             </div>
           </div>
           <DialogFooter>
-            <Button className="w-full bg-indigo-600 hover:bg-indigo-700" type="submit">Save Changes</Button>
+            {
+              loading ? <Button type="submit" className="w-full bg-cyan-800 p-2 mb-3"><Loader2 className='h-4 w-4 animate-spin mr-2' />⚡ Please wait for a while. </Button> : <Button type="submit" className="w-full bg-cyan-800 p-2 mb-3">Update</Button>
+            }
           </DialogFooter>
         </form>
       </DialogContent>

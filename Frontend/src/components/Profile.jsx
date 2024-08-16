@@ -16,15 +16,18 @@ const Profile = () => {
         <div className='w-full border p-5 rounded-md bg-white'>
           <div className='md:flex justify-between items-center gap-3 '>
             <div className='flex gap-1'>
-              <div className='flex items-center gap-5'>
-                <img className='w-32 h-32 border rounded-full object-cover' src="https://i.pinimg.com/originals/d0/d6/eb/d0d6eb27e479fc72acc48f67df6df3a8.jpg" alt="" />
+              <div className='md:flex w-full items-center gap-5'>
+                <div className='flex items-center justify-between w-full md:w-40'>
+                  <img className='w-32 h-32 border rounded-full object-cover' src="https://i.pinimg.com/originals/d0/d6/eb/d0d6eb27e479fc72acc48f67df6df3a8.jpg" alt="" />
+                  <span className=' md:hidden'> <UpdateProfile variant="outline" /></span>
+                </div>
                 <div>
                   <h2 className='font-semibold text-xl'>{user?.fullname || "Joy Kuamr"}</h2>
-                  <p className='text-sm text-gray-600'>{user?.profile?.bio || "NA"}</p>
+                  <p className='text-sm text-gray-600 '>{user?.profile?.bio || "NA"}</p>
                 </div>
               </div>
             </div>
-            <UpdateProfile />
+            <span className='hidden md:flex'> <UpdateProfile /></span>
           </div>
           <div className='mb-4 mt-1 md:mt-0' >
             <p className='mb-1 font-semibold'>Skills</p>
@@ -45,8 +48,9 @@ const Profile = () => {
             <span className='text-gray-700'> +91 {user?.phoneNumber || "NA"}</span>
           </div>
           <div className='flex items-center gap-5 mb-2'>
-            <Link to='/profile/resume' className='flex items-center text-blue-500 hover:underline'>
-              <i className="ri-download-2-fill text-2xl mr-2"></i>Download Resume
+            <Link target='_blank' className='flex items-center text-blue-500 '>
+              <i className="ri-download-2-fill text-2xl mr-2"></i>
+              <p className='hover:underline font-semibold'>{user?.profile?.resumeOriginalName || "NA"}</p>
             </Link>
           </div>
         </div>
