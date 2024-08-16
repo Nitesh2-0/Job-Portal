@@ -1,6 +1,8 @@
 import { User } from '../models/user.model.js'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
+import getDataUri from '../utils/datauri.js';
+import cloudinary from '../utils/cloudinary.js';
 
 export const register = async (req, res) => {
   try {
@@ -83,7 +85,7 @@ export const login = async (req, res) => {
     return res.status(200).cookie('token', token, {
       maxAge: 1 * 24 * 60 * 60 * 1000,
       httpOnly: true,
-      sameSite: 'strict'
+      sameSite: 'strict',
     }).json({
       message: `Welcome Back 🎊 ${user.fullname}`,
       user,
@@ -110,17 +112,18 @@ export const logout = async (req, res) => {
 export const profileUpdate = async (req, res) => {
   try {
     const { fullName, email, phoneNumber, bio, skills } = req.body;
-    console.log(fullName, email, phoneNumber, bio, skills);
-
-    const file = req.file
 
     //cloudnary for file update
+    const file = req.file
+    const fileUri = getDataUri(file)
+    const cloudResponse = await cloudinary.uploader.upload(fileUri.content)
+
     let skillsArray;
     if (skills) {
       skillsArray = skills.split(',').map(skill => skill.trim());
     }
 
-    const userId = req.id; 
+    const userId = req.id;
     let user = await User.findById(userId);
 
     if (fullName) user.fullname = fullName;
@@ -130,9 +133,13 @@ export const profileUpdate = async (req, res) => {
     if (skillsArray && skillsArray.length > 0) user.profile.skills = skillsArray;
 
     console.log(skillsArray);
-    
+
 
     // something for resume 
+    if (cloudResponse) {
+      user.profile.resume = cloudResponse.secure_url
+      user.profile.resumeOriginalName = file.originalname
+    }
     await user.save();
 
     user = {
