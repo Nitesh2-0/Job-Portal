@@ -13,6 +13,11 @@ export const register = async (req, res) => {
         success: false
       })
     }
+    //cloudnary for file update
+    const file = req.file
+    const fileUri = getDataUri(file)
+    const cloudResponse = await cloudinary.uploader.upload(fileUri.content)
+
     const user = await User.findOne({ email });
     if (user) {
       return res.status(409).json({
@@ -24,7 +29,11 @@ export const register = async (req, res) => {
       email,
       password: await bcrypt.hash(password, 10),
       role,
-      phoneNumber
+      phoneNumber,
+      profile: {
+        profilePhoto: cloudResponse.secure_url,
+      }
+
     })
     return res.status(201).json({
       message: "Account created successfully! 🎉🎉",
