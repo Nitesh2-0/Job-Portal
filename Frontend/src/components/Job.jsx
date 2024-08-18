@@ -1,6 +1,4 @@
 import React from 'react';
-
-
 import Card from './shared/Card';
 import Footer from './Footer';
 import Filter from './Filter';

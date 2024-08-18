@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route} from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/shared/Navbar';
 import Home from './components/shared/Home'
 import Login from './components/auth/Login';
@@ -7,6 +7,7 @@ import Signup from './components/auth/Signup';
 import Job from './components/Job';
 import Browse from './components/Browse';
 import Profile from './components/Profile';
+import JobDescription from './components/JobDescription';
 
 
 const App = () => {
@@ -20,6 +21,7 @@ const App = () => {
         <Route path="/jobs" element={<Job />} />
         <Route path="/browse" element={<Browse />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/jobdescriptions/:id" element={<JobDescription />} />
       </Routes>
     </>
   );

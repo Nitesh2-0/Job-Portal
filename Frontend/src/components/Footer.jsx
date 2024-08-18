@@ -4,7 +4,7 @@ const Footer = () => {
   return (
     <>
       <hr className='mt-12' />
-      <footer className='h-16 md:px-12 flex items-center justify-between  bg-gray-50  p-4'>
+      <footer className='h-16 md:px-12 flex items-center justify-between   p-4'>
         <div >
           <h1 className='font-bold text-xl'> <i className="ri-blaze-fill text-red-500 text-3xl"></i>PlacementHoga</h1>
           <p className='text-sm'>&copy;2024 All Rights Reserved.</p>
