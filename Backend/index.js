@@ -24,7 +24,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(morgan('tiny'));
 const corsOption = {
-  origin: "https://job-portal-frontend-beige.vercel.app/",
+  origin: "http://localhost:5173/",
   credentials: true
 };
 app.use(cors(corsOption));
