@@ -4,12 +4,13 @@ import { Input } from '../ui/input';
 import { RadioGroup } from '../ui/radio-group';
 import { Button } from '../ui/button';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+// import axios from 'axios';
 import { toast } from 'sonner';
-import { BASE_URL_FOR_USER } from '../../utils/axios';
+import axios from '../../utils/axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { setLoading } from '@/redux/authSlice';
 import { Loader2 } from 'lucide-react';
+// import instance from './../../utils/axios';
 
 const Signup = () => {
 
@@ -47,12 +48,7 @@ const Signup = () => {
       formData.append("role", input.role);
       formData.append("file", input.file);
 
-      const res = await axios.post(`${BASE_URL_FOR_USER}register`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        },
-        withCredentials: true
-      });
+      const res = await axios.post("/api/v1/user/register", formData);
 
       if (res.data.success) {
         toast.success(res.data.message);

@@ -5,11 +5,12 @@ import { RadioGroup } from '../ui/radio-group';
 import { Button } from '../ui/button';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
-import { BASE_URL_FOR_USER } from '../../utils/axios'
-import axios from 'axios';
+import axios from '../../utils/axios'
+// import axios from 'axiost res';
 import { useDispatch, useSelector } from 'react-redux';
 import { setLoading, setUser } from '@/redux/authSlice';
 import { Loader2 } from 'lucide-react';
+// import instance from './../../utils/axios'
 
 const Login = () => {
   const navigate = useNavigate()
@@ -31,10 +32,11 @@ const Login = () => {
     console.log(input);
     try {
       dispatch(setLoading(true))
-      const res = await axios.post(`${BASE_URL_FOR_USER}login`, input, {
-        headers: { "Content-Type": "application/json" },
-        withCredentials: true
-      });
+      const res = await axios.post("/api/v1/user/login", input);
+      // const res = await axios.post(`${instance}/api/v1/user/login`, input, {
+      //   headers: { "Content-Type": "application/json" },
+      //   withCredentials: true
+      // });
 
       if (res.data.success) {
         dispatch(setUser(res.data.user))

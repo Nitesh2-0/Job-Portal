@@ -4,8 +4,7 @@ import { Button } from './ui/button';
 import { Label } from './ui/label';
 import { Input } from './ui/input';
 import { useDispatch, useSelector } from 'react-redux';
-import axios from 'axios';
-import { BASE_URL_FOR_USER } from '../utils/axios';
+import axios from '../utils/axios';
 import { toast } from 'sonner';
 import { setLoading, setUser } from '../redux/authSlice';
 import { Loader2 } from 'lucide-react';
@@ -44,12 +43,8 @@ const UpdateProfile = () => {
     }
     try {
       dispatch(setLoading(true))
-      const res = await axios.post(`${BASE_URL_FOR_USER}/profile/update`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        },
-        withCredentials: true
-      });
+      const res = await axios.post("/api/v1/user/profile/update", formData)
+
       if (res.data.success) {
         dispatch(setUser(res.data.user));
         toast.success(res.data.message);

@@ -5,8 +5,7 @@ import { Button } from '../ui/button'
 import { LogOut, User2 } from 'lucide-react'
 import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'sonner'
-import axios from 'axios'
-import { BASE_URL_FOR_USER } from '@/utils/axios'
+import axios from '../../utils/axios'
 import { setUser } from '@/redux/authSlice'
 const Navbar = () => {
   let { user } = useSelector(store => store.auth);
@@ -15,7 +14,7 @@ const Navbar = () => {
 
   const logoutHandler = async () => {
     try {
-      const res = await axios.get(`${BASE_URL_FOR_USER}/logout`, { withCredentials: true });
+      const res = await axios.get('/api/v1/user/logout');
       console.log(res);
       if (res) {
         toast.success(res.data?.message);
