@@ -6,13 +6,49 @@ import { Badge } from './ui/badge';
 const Filter = () => {
   const role = [
     {
-      location: {
-        name: "Location",
-        locations: ["Delhi", "Pune", "Bangalore", "Mumbai", "Hyderabad", "Chennai", "Kolkata"]
+      "location": {
+        "name": "Location",
+        "locations": [
+          "Delhi",
+          "Bihar",
+          "Pune",
+          "Bangalore",
+          "Mumbai",
+          "Hyderabad",
+          "Chennai",
+          "Kolkata",
+          "Jaipur",
+          "Ahmedabad",
+          "Chandigarh",
+          "Noida",
+          "Gurgaon"
+        ]
       },
-      role: {
-        name: "Role",
-        roles: ["Backend Developer", "Frontend Developer", "Full Stack Developer", "Data Scientist", "DevOps Engineer"]
+      "role": {
+        "name": "Role",
+        "roles": [
+          "Backend Developer",
+          "Frontend Developer",
+          "Full Stack Developer",
+          "Data Scientist",
+          "DevOps Engineer",
+          "UI/UX Designer",
+          "Software Tester",
+          "Cloud Engineer",
+          "Network Engineer",
+          "IT Support Specialist",
+          "Business Analyst",
+          "Product Manager",
+          "System Administrator",
+          "Mobile App Developer",
+          "Web Designer",
+          "Machine Learning Engineer",
+          "Cybersecurity Analyst",
+          "Game Developer",
+          "ERP Consultant",
+          "Technical Writer",
+          "Support Engineer"
+        ]
       },
       salary: {
         name: "Salary",
@@ -21,7 +57,7 @@ const Filter = () => {
     }
   ];
   return (
-    <div className='w-full md:w-[20%] bg-slate-50 mt-1 p-5'>
+    <div className='w-full max-h-screen overflow-y-auto md:w-[20%]  mt-1 p-5'>
       {
         role.length > 0 ? (
           role.map((item, index) => (

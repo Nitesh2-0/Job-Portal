@@ -1,24 +1,14 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { Avatar } from './ui/avatar';
 import { Badge } from './ui/badge';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import moment from 'moment';
+import calDate from './hook/getCalcluateDate';
+import { Button } from '../components/ui/button';
 
 const TopJob = () => {
   const { allJobs } = useSelector(state => state.jobs);
-
-  const calDate = (value) => {
-    const dayBefore = moment().diff(value, 'days');
-    if (dayBefore === 0) return "Today"
-    if (dayBefore === 1) return "Yesterday"
-    if (dayBefore > 1 && dayBefore < 7) return `${dayBefore} day ago`
-    const weekCal = Math.floor(dayBefore / 7);
-    if (weekCal == 1) return `${weekCal} Week ago`
-    return `${weekCal} Weeks ago`
-
-  }
-
+  const [like, setLike] = useState(false)
   return (
     <div className='max-w-7xl flex flex-col mx-auto mt-12'>
       <h1 className='font-bold text-2xl text-center md:text-3xl'>
@@ -27,17 +17,24 @@ const TopJob = () => {
       <div className='grid grid-cols-1 mt-8 md:grid-cols-2 lg:grid-cols-3 gap-12 p-4'>
         {allJobs.slice(0, 6).map(job => (
           <div key={job._id} className='shadow-md p-4 bg-gray-50 rounded-sm'>
-            <div className='flex items-center justify-between mb-3'>
-              <span className='text-sm text-muted-foreground'>
-                {/* {moment().diff(moment(job.createdAt), 'days')} day{moment().diff(moment(job.createdAt), 'days') !== 1 ? 's' : ''} ago */}
-                {calDate(job.createdAt)}
-              </span>
-              <Badge variant="outline" className="py-2 cursor-pointer">
-                <i className="ri-heart-line"></i>
-              </Badge>
-              <Link to={`/jobdescriptions/${job._id}`} state={{ job }} className="px-2 rounded-full py-1 border">
-                <i className="ri-more-2-fill"></i>
-              </Link>
+            <div className='flex justify-between'>
+              <span className='text-sm text-muted-foreground'>{calDate(job.createdAt)}</span>
+              <div className='flex items-center gap-2'>
+                <Link className="w-9 h-9 flex items-center border justify-center rounded-full cursor-pointer" to={`/jobdescriptions/${job._id}`} state={{ job }}>
+                  <i className="ri-information-line"></i>
+                </Link>
+                {
+                  like ? (
+                    <Button onClick={() => setLike(false)} variant="outline" className="w-9 h-9 flex items-center justify-center rounded-full cursor-not-allowed">
+                      <i className="ri-heart-fill text-red-500"></i>
+                    </Button>
+                  ) : (
+                    <Button onClick={() => setLike(true)} variant="outline" className="w-9 h-9 flex items-center justify-center rounded-full cursor-pointer">
+                      <i className="ri-heart-line"></i>
+                    </Button>
+                  )
+                }
+              </div>
             </div>
             <div className='flex items-center gap-5 mb-3'>
               <Avatar className='bg-gray-500 rounded-none'>

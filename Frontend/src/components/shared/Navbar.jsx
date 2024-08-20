@@ -44,7 +44,7 @@ const Navbar = () => {
             !user ? (
               <div className='flex gap-4'>
                 <Link to="/login"><Button className="md:px-5 border hover:text-white  md:text-black hover:bg-gray-700 " variant="outlier">Login</Button></Link>
-                <Link to="/signup"><Button className="md:px-5 border hover:text-white md:text-white hover:bg-blue-600 md:bg-blue-500" variant="outlier">Singup</Button></Link>
+                <Link to="/signup"><Button className="hidden md:flex md:px-5 border hover:text-white md:text-white hover:bg-blue-600 md:bg-blue-500" variant="outlier">Singup</Button></Link>
               </div>
             ) : (
               <Popover>
