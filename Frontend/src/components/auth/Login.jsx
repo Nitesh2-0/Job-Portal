@@ -31,14 +31,13 @@ const Login = () => {
     try {
       dispatch(setLoading(true));
       const res = await axios.post("/api/v1/user/login", input);
-      console.log(res.data); 
 
       if (res.data.success) {
         const { user, token } = res.data;
         dispatch(setUser({ user, token }));
         localStorage.setItem('token', token);
         toast.success(res.data?.message || 'Login Successfully 🎉');
-        navigate('/');
+        navigate('/home');
       }
     } catch (error) {
       toast.error(error.response?.data?.message || 'An error occurred 👿');
@@ -49,9 +48,9 @@ const Login = () => {
 
 
   return (
-    <div className='w-full lg:mt-12 lg:max-w-7xl flex items-center justify-between lg:mx-auto px-4 sm:px-0'>
-      <div className='hidden  w-[90%] lg:block'>
-        <img src="https://liveassets.ca/wp-content/uploads/2023/09/Newcomers-Guide-Navigating-Canadas-Job-Market-Live-Assets.jpeg" alt="Login Illustration" className='max-w-full h-auto' />
+    <div className='w-full mt-2 lg:max-w-7xl flex items-center justify-between lg:mx-auto px-4 sm:px-0'>
+      <div className='hidden  w-[70%] lg:block'>
+        <img src="https://img.freepik.com/free-vector/login-concept-illustration_114360-739.jpg" alt="Login Illustration" className='max-w-full h-auto' />
       </div>
       <form onSubmit={loginEventHandler} className='w-full lg:w-1/2 rounded-md p-6 my-10 bg-white '>
         <h1 className='text-2xl text-center font-semibold mb-6'>Login</h1>
@@ -110,7 +109,7 @@ const Login = () => {
             </div>
           </RadioGroup>
         </fieldset>
-        <Button type="submit" className="w-full p-2 mb-4" disabled={loading}>
+        <Button type="submit" className="w-full md:bg-[#00E0BC] md:hover:bg-[#43cdb6] p-2 mb-4" disabled={loading}>
           {loading ? <Loader2 className='h-4 w-4 animate-spin mr-2' /> : 'Login'}
         </Button>
         <div className='text-center'>

@@ -1,7 +1,6 @@
 import React from 'react'
 import { RadioGroup, RadioGroupItem } from './ui/radio-group';
 import { Label } from './ui/label';
-import { Badge } from './ui/badge';
 
 const Filter = () => {
   const role = [

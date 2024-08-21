@@ -6,9 +6,13 @@ import AppliedJob from './AppliedJob';
 import Footer from './Footer';
 import { useSelector } from 'react-redux';
 import UpdateProfile from './UpdateProfile';
+import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 
 const Profile = () => {
   const { user } = useSelector(store => store.auth);
+  console.log(user);
+
+  const defaultUrl = "https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg";
 
   return (
     <>
@@ -17,9 +21,14 @@ const Profile = () => {
           <div className='md:flex justify-between items-center gap-3 '>
             <div className='flex gap-1'>
               <div className='md:flex w-full items-center gap-5'>
-                <div className='flex items-center justify-between w-full md:w-40'>
-                  <img className='w-32 h-32 border rounded-full object-cover' src="https://i.pinimg.com/originals/d0/d6/eb/d0d6eb27e479fc72acc48f67df6df3a8.jpg" alt="" />
-                  <span className=' md:hidden'> <UpdateProfile variant="outline" /></span>
+                <div className='flex flex-col items-center justify-center w-full md:w-40'>
+                  <Avatar className="w-24 h-24">
+                    <AvatarImage src={user?.profile?.profilePhoto || defaultUrl} alt="@shadcn" />
+                    <AvatarFallback>CN</AvatarFallback>
+                  </Avatar>
+                  <span className='md:hidden mt-2'>
+                    <UpdateProfile variant="outline" />
+                  </span>
                 </div>
                 <div>
                   <h2 className='font-semibold text-xl'>{user?.fullname || "Joy Kuamr"}</h2>
@@ -33,8 +42,8 @@ const Profile = () => {
             <p className='mb-1 font-semibold'>Skills</p>
             {
               user?.profile?.skills.length != 0 && user?.profile?.skills.map((item, idx) => (
-                <Button variant="outline" className="m-1" key={idx}>{
-                  item
+                <Button variant="outline" className="m-1 font-mono" key={idx}>{
+                  item.toUpperCase()
                 }</Button>
               ))
             }
@@ -48,9 +57,9 @@ const Profile = () => {
             <span className='text-gray-700'> +91 {user?.phoneNumber || "NA"}</span>
           </div>
           <div className='flex items-center gap-5 mb-2'>
-            <Link target='_blank' className='flex items-center text-blue-500 '>
+            <Link to={user?.profile?.resume} target='_blank' className='flex items-center text-blue-500 '>
               <i className="ri-download-2-fill text-2xl mr-2"></i>
-              <p className='hover:underline font-semibold'>{user?.profile?.resumeOriginalName || "NA"}</p>
+              <p className='hover:underline font-semibold'>{user?.profile?.resumeOriginalName.slice(0, 30) || "NA"}</p>
             </Link>
           </div>
         </div>

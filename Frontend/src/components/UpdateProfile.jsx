@@ -8,10 +8,12 @@ import axios from '../utils/axios';
 import { toast } from 'sonner';
 import { setLoading, setUser } from '../redux/authSlice';
 import { Loader2 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const UpdateProfile = () => {
   const { user, loading } = useSelector(store => store.auth);
   const dispatch = useDispatch();
+  const navigate = useNavigate()
 
   const [input, setInput] = useState({
     fullname: user?.fullname || "",
@@ -48,6 +50,7 @@ const UpdateProfile = () => {
       if (res.data.success) {
         dispatch(setUser(res.data.user));
         toast.success(res.data.message);
+        navigate('/profile')
       }
     } catch (error) {
       console.log(error);

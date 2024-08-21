@@ -8,7 +8,7 @@ import { Button } from '../../components/ui/button'
 const Card = ({ job }) => {
   const [like, setLike] = useState(false)
   return (
-    <div className='shadow-md p-4  rounded-sm transition-transform transform hover:scale-105 max-w-xs h-64'>
+    <div className='shadow-md p-4 rounded-sm transition-transform transform hover:scale-105 max-w-xs h-64'>
       <div className='flex justify-between'>
         <span className='text-sm text-muted-foreground'>{calDate(job.createdAt)}</span>
         <div className='flex items-center gap-2'>
