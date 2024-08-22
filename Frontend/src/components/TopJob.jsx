@@ -1,15 +1,16 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 import { Avatar } from './ui/avatar';
 import { Badge } from './ui/badge';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import calDate from './hook/getCalcluateDate';
 import { Button } from '../components/ui/button';
+import { HashLoader } from 'react-spinners'
 
 const TopJob = () => {
   const { allJobs } = useSelector(state => state.jobs);
   const [like, setLike] = useState(false)
-  return (
+  return allJobs.length != 0 ? (
     <div className='max-w-7xl flex flex-col mx-auto mt-12'>
       <h1 className='font-bold text-2xl text-center md:text-3xl'>
         <span className='text-blue-700'>Latest & Top</span> Job Openings
@@ -62,7 +63,10 @@ const TopJob = () => {
         ))}
       </div>
     </div>
-  );
+  ) : <div className="flex gap-5 justify-center items-center h-screen">
+    <HashLoader color="blue" />
+    <span>Loading...</span>
+  </div>
 };
 
 export default TopJob;

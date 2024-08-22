@@ -47,10 +47,11 @@ const UpdateProfile = () => {
       dispatch(setLoading(true))
       const res = await axios.post("/api/v1/user/profile/update", formData)
 
-      if (res.data.success) {
-        dispatch(setUser(res.data.user));
-        toast.success(res.data.message);
-        navigate('/profile')
+      if (res.data?.success) {
+        dispatch(setUser(res.data?.user));
+        toast.success(res.data?.message);
+        // localStorage.setItem(res.data?.user);
+        // localStorage.setItem(res.data?.token)
       }
     } catch (error) {
       console.log(error);
@@ -58,7 +59,6 @@ const UpdateProfile = () => {
     } finally {
       dispatch(setLoading(false))
     }
-    console.log(input);
   }
 
   return (
@@ -119,20 +119,39 @@ const UpdateProfile = () => {
                 className="col-span-3"
               />
             </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="skills" className="text-right">
-                Skills
-              </Label>
-              <textarea
-                id="skills"
-                name="skills"
-                value={input.skills}
-                onChange={handleChange}
-                className="col-span-3 rounded border p-1"
-                placeholder="Add skills, e.g., React, JavaScript, Node"
-              />
-            </div>
-            <div className="grid grid-cols-4 items-center gap-4">
+            {
+              user?.role !== 'recruiter' ? (
+                <>
+                  <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="skills" className="text-right">
+                      Skills
+                    </Label>
+                    <textarea
+                      id="skills"
+                      name="skills"
+                      value={input.skills}
+                      onChange={handleChange}
+                      className="col-span-3 rounded border p-1"
+                      placeholder="Add skills, e.g., React, JavaScript, Node"
+                    />
+                  </div>
+                  <div className="grid grid-cols-4 items-center gap-4 mt-4">
+                    <Label htmlFor="picture" className="text-right">
+                      Resume
+                    </Label>
+                    <Input
+                      id="picture"
+                      type="file"
+                      name="file"
+                      accept="application/pdf"
+                      onChange={handleFileEvent}
+                      className="col-span-3"
+                    />
+                  </div>
+                </>
+              ) : null
+            }
+            <div className="grid grid-cols-4 items-center gap-4 mt-4">
               <Label htmlFor="bio" className="text-right">
                 Bio
               </Label>
@@ -143,19 +162,6 @@ const UpdateProfile = () => {
                 onChange={handleChange}
                 className="col-span-3 rounded border p-1"
                 placeholder="Write a short bio"
-              />
-            </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="picture" className="text-right">
-                Picture
-              </Label>
-              <Input
-                id="picture"
-                type="file"
-                name="file"
-                accept="application/pdf"
-                onChange={handleFileEvent}
-                className="col-span-3"
               />
             </div>
           </div>

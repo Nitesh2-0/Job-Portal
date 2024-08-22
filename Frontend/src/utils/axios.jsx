@@ -2,19 +2,19 @@ import axios from "axios";
 
 const instance = axios.create({
   baseURL: "http://localhost:8080",
+  // baseURL:"https://job-portal-server-2ee8.onrender.com",
   withCredentials: true,
 });
 
-// Add a request interceptor
-instance.interceptors.request.use((config) => {
-  const token = localStorage.getItem('token');
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-  return config;
-}, (error) => {
-  return Promise.reject(error);
-});
+// instance.interceptors.request.use((config) => {
+//   const token = localStorage.getItem('token');
+//   if (token) {
+//     config.headers.Authorization = `Bearer ${token}`;
+//   }
+//   return config;
+// }, (error) => {
+//   return Promise.reject(error);
+// });
 
 // Optional: Add a response interceptor to handle token expiry
 instance.interceptors.response.use(

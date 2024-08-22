@@ -10,7 +10,6 @@ import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 
 const Profile = () => {
   const { user } = useSelector(store => store.auth);
-  console.log(user);
 
   const defaultUrl = "https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg";
 
@@ -38,17 +37,19 @@ const Profile = () => {
             </div>
             <span className='hidden md:flex'> <UpdateProfile /></span>
           </div>
-          <div className='mb-4 mt-1 md:mt-0' >
-            <p className='mb-1 font-semibold'>Skills</p>
-            {
-              user?.profile?.skills.length != 0 && user?.profile?.skills.map((item, idx) => (
-                <Button variant="outline" className="m-1 font-mono" key={idx}>{
-                  item.toUpperCase()
-                }</Button>
-              ))
-            }
-          </div>
-          <div className='flex items-center gap-5 mb-2'>
+          {
+            user?.role != 'recruiter' ? <div className='mb-4 mt-1 md:mt-0' >
+              <p className='mb-1 font-semibold'>Skills</p>
+              {
+                user?.profile?.skills.length != 0 && user?.profile?.skills.map((item, idx) => (
+                  <Button variant="outline" className="m-1 font-mono" key={idx}>{
+                    item.toUpperCase()
+                  }</Button>
+                ))
+              }
+            </div> : ""
+          }
+          <div className='flex items-center gap-5 mb-2 mt-2'>
             <Mail className='text-gray-500' />
             <span className='text-gray-700'>{user?.email || "NA"}</span>
           </div>
@@ -56,19 +57,23 @@ const Profile = () => {
             <Contact className='text-gray-500' />
             <span className='text-gray-700'> +91 {user?.phoneNumber || "NA"}</span>
           </div>
-          <div className='flex items-center gap-5 mb-2'>
-            <Link to={user?.profile?.resume} target='_blank' className='flex items-center text-blue-500 '>
-              <i className="ri-download-2-fill text-2xl mr-2"></i>
-              <p className='hover:underline font-semibold'>{user?.profile?.resumeOriginalName.slice(0, 30) || "NA"}</p>
-            </Link>
-          </div>
+          {
+            user?.role != 'recruiter' ? <div className='flex items-center gap-5 mb-2'>
+              <Link to={user?.profile?.resume} target='_blank' className='flex items-center text-blue-500 '>
+                <i className="ri-download-2-fill text-2xl mr-2"></i>
+                <p className='hover:underline font-semibold'>{user?.profile?.resumeOriginalName || "NA"}</p>
+              </Link>
+            </div> : ""
+          }
         </div>
-        <h1 className='mt-5 font-semibold text-sm text-center md:text-start'>Applied Job</h1>
+        <h1 className="mt-8 font-bold text-lg text-center md:text-left text-gray-800 md:mt-6">
+          {user?.role === 'recruiter' ? "Jobs Posted by You" : "Applied Jobs"}
+        </h1>
         <AppliedJob />
-      </div>
+      </div >
       <Footer />
     </>
-  );
+  )
 }
 
 export default Profile;

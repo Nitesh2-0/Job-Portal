@@ -1,9 +1,14 @@
 import React from 'react'
 import { Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow } from './ui/table'
 import SetColor from './SetColor'
+import { useSelector } from 'react-redux'
 
 const AppliedJob = () => {
-  const jobApplied = [
+  const { user } = useSelector(store => store.auth);
+  console.log(user?.role);
+
+  // Sample data for students (applied jobs)
+  const appliedJobs = [
     { date: "06-08-2024", role: "MERN Stack Developer", company: "Google", status: "Accepted" },
     { date: "06-08-2024", role: "MERN Stack Developer", company: "Google", status: "Pending" },
     { date: "06-08-2024", role: "MERN Stack Developer", company: "Google", status: "Rejected" },
@@ -17,35 +22,54 @@ const AppliedJob = () => {
     { date: "15-08-2024", role: "Cybersecurity Specialist", company: "Cisco", status: "Pending" },
     { date: "17-08-2024", role: "IT Support Specialist", company: "Dell", status: "Rejected" }
   ];
+
+  // Sample data for recruiters (posted jobs)
+  const postedJobs = [
+    { date: "01-08-2024", role: "Frontend Developer", company: "Google", applications: 45 },
+    { date: "02-08-2024", role: "Backend Developer", company: "Facebook", applications: 30 },
+    { date: "03-08-2024", role: "Full Stack Developer", company: "Netflix", applications: 25 },
+    { date: "04-08-2024", role: "Data Scientist", company: "Tesla", applications: 40 },
+    { date: "05-08-2024", role: "Cybersecurity Specialist", company: "Cisco", applications: 35 },
+  ];
+
+  // Determine which data to display based on the user's role
+  const dataToDisplay = user?.role === 'recruiter' ? postedJobs : appliedJobs;
+
   return (
     <Table className="border rounded mt-4">
-      <TableCaption>A list of your applied job.</TableCaption>
+      <TableCaption>
+        {user?.role !== 'recruiter' ? "A list of your applied jobs." : "A list of posted jobs."}
+      </TableCaption>
       <TableHeader>
         <TableRow>
-          <TableHead >Date</TableHead>
+          <TableHead>Date</TableHead>
           <TableHead>Job Role</TableHead>
           <TableHead>Company</TableHead>
-          <TableHead className="text-right pr-8">Status</TableHead>
+          <TableHead className="text-right">
+            {user?.role !== 'recruiter' ? "Status" : "Applicants"}
+          </TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
-        {jobApplied.map((job, idx) => (
+        {dataToDisplay.map((job, idx) => (
           <TableRow key={idx}>
-            <TableCell >{job.date}</TableCell>
+            <TableCell>{job.date}</TableCell>
             <TableCell>{job.role}</TableCell>
             <TableCell>{job.company}</TableCell>
-            <TableCell className="text-right"><SetColor job={job} /></TableCell>
+            <TableCell className="text-right">
+              {user?.role !== 'recruiter' ? <SetColor job={job} /> : job.applications}
+            </TableCell>
           </TableRow>
         ))}
       </TableBody>
       <TableFooter>
         <TableRow>
           <TableCell colSpan={3}>Total</TableCell>
-          <TableCell className="text-right pr-8">{jobApplied.length}</TableCell>
+          <TableCell className="text-right pr-8">{dataToDisplay.length}</TableCell>
         </TableRow>
       </TableFooter>
     </Table>
-  )
+  );
 }
 
-export default AppliedJob
+export default AppliedJob;
