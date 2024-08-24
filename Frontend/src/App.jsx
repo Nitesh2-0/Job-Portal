@@ -12,11 +12,6 @@ import JobDescription from './components/JobDescription';
 
 const App = () => {
 
-  let token = null
-  useEffect(() => {
-    token = localStorage.getItem("token")
-  }, [])
-
   return (
     <>
       <Navbar />

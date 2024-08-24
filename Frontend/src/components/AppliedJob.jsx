@@ -5,9 +5,7 @@ import { useSelector } from 'react-redux'
 
 const AppliedJob = () => {
   const { user } = useSelector(store => store.auth);
-  console.log(user?.role);
 
-  // Sample data for students (applied jobs)
   const appliedJobs = [
     { date: "06-08-2024", role: "MERN Stack Developer", company: "Google", status: "Accepted" },
     { date: "06-08-2024", role: "MERN Stack Developer", company: "Google", status: "Pending" },
@@ -23,7 +21,6 @@ const AppliedJob = () => {
     { date: "17-08-2024", role: "IT Support Specialist", company: "Dell", status: "Rejected" }
   ];
 
-  // Sample data for recruiters (posted jobs)
   const postedJobs = [
     { date: "01-08-2024", role: "Frontend Developer", company: "Google", applications: 45 },
     { date: "02-08-2024", role: "Backend Developer", company: "Facebook", applications: 30 },
@@ -32,7 +29,6 @@ const AppliedJob = () => {
     { date: "05-08-2024", role: "Cybersecurity Specialist", company: "Cisco", applications: 35 },
   ];
 
-  // Determine which data to display based on the user's role
   const dataToDisplay = user?.role === 'recruiter' ? postedJobs : appliedJobs;
 
   return (
