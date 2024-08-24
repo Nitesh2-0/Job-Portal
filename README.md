@@ -11,7 +11,7 @@ Welcome to PlacementHoga, your ultimate destination for finding jobs and interns
 
 We hope these features make PlacementHoga your go-to platform for advancing your career.
 
-[![Visit Our Website](https://img.shields.io/badge/Visit%20Our%20Website-%2300C853?style=for-the-badge&logo=internet-explorer&logoColor=white)](https://job-portal-six-rho.vercel.app/)
+[![Visit Our Website](https://img.shields.io/badge/Visit%20Our%20Website-%2300C853?style=for-the-badge&logo=internet-explorer&logoColor=white)]()
 
 ## Technologies Used
 
