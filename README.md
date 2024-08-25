@@ -35,4 +35,9 @@ Here’s a visual representation of the technologies we use and why:
 - **JWT (JSON Web Tokens):** Implemented for stateless authentication, allowing secure and scalable user sessions.
 - **Cloudinary:** Integrated for efficient image and media management, providing reliable cloud storage and delivery.
 
+## Clone
+```node.sj
+git clone https://github.com/Nitesh2-0/Job-Portal.git
+```
+
 
