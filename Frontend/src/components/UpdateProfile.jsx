@@ -46,12 +46,9 @@ const UpdateProfile = () => {
     try {
       dispatch(setLoading(true))
       const res = await axios.post("/api/v1/user/profile/update", formData)
-
       if (res.data?.success) {
         dispatch(setUser(res.data?.user));
         toast.success(res.data?.message);
-        // localStorage.setItem(res.data?.user);
-        // localStorage.setItem(res.data?.token)
       }
     } catch (error) {
       console.log(error);

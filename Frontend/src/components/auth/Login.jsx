@@ -34,8 +34,7 @@ const Login = () => {
 
       if (res.data.success) {
         const { user, token } = res.data;
-        dispatch(setUser({ user, token }));
-        localStorage.setItem('token', JSON.stringify(token));
+        dispatch(setUser(user));
         toast.success(res.data?.message || 'Login Successfully 🎉');
         navigate('/home');
       }

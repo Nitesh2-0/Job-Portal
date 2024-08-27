@@ -10,15 +10,36 @@ import { setSingleJob } from '@/redux/jobSlice.js';
 import { HashLoader } from 'react-spinners';
 
 const JobDescription = () => {
+  const { singleJob } = useSelector(store => store.jobs);
+  const { user } = useSelector(store => store.auth);
   const [isAppliedAvailable, setIsAppliedAvailable] = useState(false);
   const [shouldFetch, setShouldFetch] = useState(true);
   const navigate = useNavigate();
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { singleJob } = useSelector(store => store.jobs);
-  const { user } = useSelector(store => store.auth);
+
   console.log(user);
 
+
+  const appyBtnHandler = async () => {
+    try {
+      const res = await axios.get(`/api/v1/application/apply/${singleJob?._id}`);
+      if (res.data.success) {
+        toast.success(res.data?.message);
+        setIsAppliedAvailable(true);
+        console.log({
+          ...singleJob,
+          applications: [
+            ...(singleJob?.applications || []),
+            { applicant: user?._id }
+          ]
+        });
+        setShouldFetch(true);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     const fetchJobData = async () => {
@@ -27,7 +48,7 @@ const JobDescription = () => {
         if (res.data?.success) {
           dispatch(setSingleJob(res?.data?.job));
           const track = res?.data?.job.applications;
-          const ans = track.some(application => application?.applicant === user._id);
+          const ans = track.some(application => application?.applicant === user?._id);
           setIsAppliedAvailable(ans);
         } else {
           toast.error('Failed to fetch job details');
@@ -44,18 +65,6 @@ const JobDescription = () => {
     }
   }, [id, dispatch, user._id, shouldFetch]);
 
-  const appyBtnHandler = async () => {
-    try {
-      const res = await axios.get(`/api/v1/application/apply/${singleJob._id}`);
-      if (res.data.success) {
-        toast.success(res.data?.message);
-        setIsAppliedAvailable(true);
-        setShouldFetch(true);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   if (!singleJob) {
     return (
