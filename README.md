@@ -39,5 +39,9 @@ Here’s a visual representation of the technologies we use and why:
 ```node.sj
 git clone https://github.com/Nitesh2-0/Job-Portal.git
 ```
+## Dependency
+```node.sj
+npm install
+```
 
 
