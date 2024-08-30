@@ -9,7 +9,7 @@ const getAllJobs = () => {
   useEffect(() => {
     const fetchAllJobs = async () => {
       try {
-        const res = await axios.get('/api/v1/job//get');
+        const res = await axios.get('/api/v1/job/get');
         if (res.data.success) {
           dispatch(setAllJobs(res.data?.jobs))
         }

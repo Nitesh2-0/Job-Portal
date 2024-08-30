@@ -30,7 +30,7 @@ const Login = () => {
     e.preventDefault();
     try {
       dispatch(setLoading(true));
-      const res = await axios.post("/api/v1/user/login", input);
+      const res = await axios.post('/api/v1/user/login', input);
 
       if (res.data.success) {
         const { user, token } = res.data;

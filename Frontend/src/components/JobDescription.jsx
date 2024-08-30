@@ -18,8 +18,6 @@ const JobDescription = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
 
-  console.log(user);
-
 
   const appyBtnHandler = async () => {
     try {
@@ -27,13 +25,6 @@ const JobDescription = () => {
       if (res.data.success) {
         toast.success(res.data?.message);
         setIsAppliedAvailable(true);
-        console.log({
-          ...singleJob,
-          applications: [
-            ...(singleJob?.applications || []),
-            { applicant: user?._id }
-          ]
-        });
         setShouldFetch(true);
       }
     } catch (error) {

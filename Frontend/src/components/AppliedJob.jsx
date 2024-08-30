@@ -32,39 +32,43 @@ const AppliedJob = () => {
   const dataToDisplay = user?.role === 'recruiter' ? postedJobs : appliedJobs;
 
   return (
-    <Table className="border rounded mt-4">
-      <TableCaption>
-        {user?.role !== 'recruiter' ? "A list of your applied jobs." : "A list of posted jobs."}
-      </TableCaption>
-      <TableHeader>
-        <TableRow>
-          <TableHead>Date</TableHead>
-          <TableHead>Job Role</TableHead>
-          <TableHead>Company</TableHead>
-          <TableHead className="text-right">
-            {user?.role !== 'recruiter' ? "Status" : "Applicants"}
-          </TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {dataToDisplay.map((job, idx) => (
-          <TableRow key={idx}>
-            <TableCell>{job.date}</TableCell>
-            <TableCell>{job.role}</TableCell>
-            <TableCell>{job.company}</TableCell>
-            <TableCell className="text-right">
-              {user?.role !== 'recruiter' ? <SetColor job={job} /> : job.applications}
-            </TableCell>
-          </TableRow>
-        ))}
-      </TableBody>
-      <TableFooter>
-        <TableRow>
-          <TableCell colSpan={3}>Total</TableCell>
-          <TableCell className="text-right pr-8">{dataToDisplay.length}</TableCell>
-        </TableRow>
-      </TableFooter>
-    </Table>
+    <div className="overflow-x-auto mt-4">
+      <div className="max-h-96 overflow-y-auto"> 
+        <Table className="min-w-full border rounded">
+          <TableCaption>
+            {user?.role !== 'recruiter' ? "A list of your applied jobs." : "A list of posted jobs."}
+          </TableCaption>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Date</TableHead>
+              <TableHead>Job Role</TableHead>
+              <TableHead>Company</TableHead>
+              <TableHead className="text-right">
+                {user?.role !== 'recruiter' ? "Status" : "Applicants"}
+              </TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {dataToDisplay.map((job, idx) => (
+              <TableRow key={idx}>
+                <TableCell>{job.date}</TableCell>
+                <TableCell>{job.role}</TableCell>
+                <TableCell>{job.company}</TableCell>
+                <TableCell className="text-right">
+                  {user?.role !== 'recruiter' ? <SetColor job={job} /> : job.applications}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+          <TableFooter>
+            <TableRow>
+              <TableCell colSpan={3}>Total</TableCell>
+              <TableCell className="text-right pr-8">{dataToDisplay.length}</TableCell>
+            </TableRow>
+          </TableFooter>
+        </Table>
+      </div>
+    </div>
   );
 }
 

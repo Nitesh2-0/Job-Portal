@@ -48,22 +48,41 @@ const Navbar = () => {
           </Link>
         </div>
         <div className='flex items-center gap-5'>
-          <ul className='hidden lg:flex gap-10'>
-            {['Home', 'Jobs', 'Browse'].map((item) => (
-              <li key={item} className='font-semibold'>
-                <NavLink
-                  className={(e) =>
-                    e.isActive
-                      ? 'text-indigo-600 border-b-2 border-indigo-700'
-                      : ''
-                  }
-                  to={`/${item.toLowerCase()}`}
-                >
-                  {item}
-                </NavLink>
-              </li>
-            ))}
-          </ul>
+          {
+            user?.role === 'student' ? (<ul className='hidden lg:flex gap-10'>
+              {['Home', 'Jobs', 'Browse'].map((item) => (
+                <li key={item} className='font-semibold'>
+                  <NavLink
+                    className={(e) =>
+                      e.isActive
+                        ? 'text-indigo-600 border-b-2 border-indigo-700'
+                        : ''
+                    }
+                    to={`/${item.toLowerCase()}`}
+                  >
+                    {item}
+                  </NavLink>
+                </li>
+              ))}
+            </ul>) : (
+              <ul className='hidden lg:flex gap-10'>
+                {['Company', 'Jobs'].map((item) => (
+                  <li key={item} className='font-semibold'>
+                    <NavLink
+                      className={(e) =>
+                        e.isActive
+                          ? 'text-indigo-600 border-b-2 border-indigo-700'
+                          : ''
+                      }
+                      to={`/job-admin/${item.toLowerCase()}`}
+                    >
+                      {item}
+                    </NavLink>
+                  </li>
+                ))}
+              </ul>
+            )
+          }
 
           {!user ? (
             <div className='flex gap-4'>
