@@ -15,11 +15,13 @@ const CreateCompany = () => {
 
   const registerNewCompany = async () => {
     try {
-      const res = await axios.post('/api/v1/company/register', companyName);
+
+      const res = await axios.post('/api/v1/company/register', { companyName });
+
       if (res.data?.success) {
-        toast.success(res.data?.message)
-        dispatch(setAllCompany(res.data?.companies))
-        navigate(-1)
+        toast.success(res.data?.message);
+        dispatch(setAllCompany(res.data?.companies));
+        navigate("/job-admin/company");
       }
     } catch (error) {
       console.log(error);

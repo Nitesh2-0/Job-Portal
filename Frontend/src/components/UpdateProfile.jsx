@@ -13,7 +13,6 @@ import { useNavigate } from 'react-router-dom';
 const UpdateProfile = () => {
   const { user, loading } = useSelector(store => store.auth);
   const dispatch = useDispatch();
-  const navigate = useNavigate()
 
   const [input, setInput] = useState({
     fullname: user?.fullname || "",

@@ -5,14 +5,13 @@ import { useSelector } from 'react-redux';
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '../ui/table';
 import { PopoverContent, PopoverTrigger, Popover } from '../ui/popover';
 import { Avatar, AvatarImage } from '../ui/avatar';
-import Footer from '../Footer';
-import getAllCompany from '../hook/getAllCompany';
 import { useNavigate } from 'react-router-dom';
 
-const CompanyTable = ({userId}) => {
+const CompanyTable = ({ userId }) => {
   const { allCompany } = useSelector(store => store.company);
   const navigate = useNavigate()
   const [companies, setCompanies] = useState(allCompany || []);
+
 
   const defult_url = "https://medvirturials.com/img/old_logo.png"
 
@@ -31,7 +30,7 @@ const CompanyTable = ({userId}) => {
         </TableHeader>
         <TableBody>
           {
-            companies?.reverse().map((val, idx) => (
+            companies?.map((val, idx) => (
               <TableRow key={idx}>
                 <TableCell>
                   <Avatar className="rounded-none">
@@ -47,9 +46,11 @@ const CompanyTable = ({userId}) => {
                         <i className="ri-more-2-line"></i>
                       </Button>
                     </PopoverTrigger>
-                    <PopoverContent className="border border-slate-200 bg-white shadow-md rounded-lg p-3 w-40 flex items-center space-x-2">
-                      <i className="ri-pencil-line text-cyan-700"></i>
-                      <span className="text-gray-700 font-medium">Edit</span>
+                    <PopoverContent className="border border-slate-200 bg-white shadow-md rounded-lg p-3 w-24 flex items-center space-x-2">
+                      <Button onClick={() => navigate(`/job-admin/company/update-company-information/${val._id}`)} className="flex w-full gap-2 bg-transparent hover:bg-gray-50">
+                        <i className="ri-pencil-line text-cyan-700"></i>
+                        <span className="text-gray-700 font-medium">Edit</span>
+                      </Button>
                     </PopoverContent>
                   </Popover>
                 </TableCell>

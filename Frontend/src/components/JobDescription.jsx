@@ -131,7 +131,7 @@ const JobDescription = () => {
             <strong>Applicants :- </strong> {singleJob.applications?.length}
           </p>
           <p className='text-gray-700 mb-2'>
-            <strong>Posted Date :- </strong> {singleJob.createdAt.split('T')[0]}
+            <strong>Posted Date :- </strong> {singleJob.createdAt.split('T')[0].split('-').reverse().join('/')}
           </p>
         </div>
       </div >

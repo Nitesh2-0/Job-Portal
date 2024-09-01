@@ -22,7 +22,7 @@ const Signup = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { loading } = useSelector(store => store.auth);
+ 
 
   const changeEventHandler = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });

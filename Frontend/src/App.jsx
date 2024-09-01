@@ -11,6 +11,7 @@ import JobDescription from './components/JobDescription';
 import CreateJob from './components/Admin/CreateJob';
 import Company from './components/Admin/Company';
 import CreateCompany from './components/Admin/CreateCompany';
+import CompanyInfoUpdated from './components/Admin/CompanyInfoUpdated';
 
 
 const App = () => {
@@ -30,6 +31,7 @@ const App = () => {
         <Route path="/job-admin/company" element={<Company />} />
         <Route path="/job-admin/jobs" element={<CreateJob />} />
         <Route path="/job-admin/company/:id" element={<CreateCompany />} />
+        <Route path="/job-admin/company/update-company-information/:id" element={<CompanyInfoUpdated />} />
       </Routes>
     </>
   );
