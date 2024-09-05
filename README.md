@@ -1,4 +1,4 @@
-# PlacementHoga | Job Portal
+# PlacementHoga | Job-Portal
 
 Welcome to PlacementHoga, your ultimate destination for finding jobs and internships. Our website is fully responsive, ensuring a seamless experience across all devices.
 
