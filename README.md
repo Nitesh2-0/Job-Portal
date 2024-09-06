@@ -1,6 +1,6 @@
 # PlacementHoga | Job-Portal
 
-Welcome to PlacementHoga, your ultimate destination for finding jobs and internships. Our website is fully responsive, ensuring a seamless experience across all devices.
+Welcome to PlacementHoga,your ultimate destination for finding jobs and internships. Our website is fully responsive, ensuring a seamless experience across all devices.
 
 ## Why Should You Use This Website?
 
