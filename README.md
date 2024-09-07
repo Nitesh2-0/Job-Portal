@@ -13,7 +13,7 @@ We hope these features make PlacementHoga your go-to platform for advancing your
 
 [![Visit Our Website](https://img.shields.io/badge/Visit%20Our%20Website-%2300C853?style=for-the-badge&logo=internet-explorer&logoColor=white)]()
 
-## Technologies Used
+## Technologies Used in this 
 
 Here’s a visual representation of the technologies we use and why:
 
