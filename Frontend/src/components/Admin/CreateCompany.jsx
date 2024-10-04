@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Label } from '../ui/label';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
-import { useNavigate } from 'react-router-dom';
+import { redirect, useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import { useDispatch } from 'react-redux';
 import axios from '../../utils/axios';
@@ -21,7 +21,8 @@ const CreateCompany = () => {
       if (res.data?.success) {
         toast.success(res.data?.message);
         dispatch(setAllCompany(res.data?.companies));
-        navigate("/job-admin/company");
+        return redirect('/')
+        // navigate(`/company/update-company-information/${res.data?.companies._id}`);
       }
     } catch (error) {
       console.log(error);
