@@ -23,11 +23,17 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(morgan('tiny'));
-const corsOption = {
-  origin: "http://localhost:5173/",
-  credentials: true
+
+// Create CORS options
+const corsOptions = {
+  origin: '*', // Allow all origins
+  credentials: true, // Allow credentials (cookies, etc.)
+  methods: ["GET", "POST", "PUT", "DELETE"], // Allowed methods
 };
-app.use(cors(corsOption));
+
+// Use CORS middleware with options
+app.use(cors(corsOptions));
+
 
 
 // api's 
