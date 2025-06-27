@@ -1,4 +1,4 @@
-import { BASE_URL_FOR_JOB } from '@/utils/axios'
+import api from '../../utils/axios'
 import axios from 'axios'
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux';
@@ -9,10 +9,11 @@ const getAllJobs = () => {
   useEffect(() => {
     const fetchAllJobs = async () => {
       try {
-        const res = await axios.get(`${BASE_URL_FOR_JOB}/get`, { withCredentials: true });
+        const res = await axios.get('/api/v1/job/get', { withCredentials: true });
         if (res.data.success) {
           dispatch(setAllJobs(res.data?.jobs))
         }
+        console.log(res.data);
       } catch (error) {
         console.log(error);
       }

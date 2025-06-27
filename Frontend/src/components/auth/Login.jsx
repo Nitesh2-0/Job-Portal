@@ -5,11 +5,12 @@ import { RadioGroup } from '../ui/radio-group';
 import { Button } from '../ui/button';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
-import { BASE_URL_FOR_USER } from '../../utils/axios'
+import api from '../../utils/axios'
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { setLoading, setUser } from '@/redux/authSlice';
 import { Loader2 } from 'lucide-react';
+
 
 const Login = () => {
   const navigate = useNavigate()
@@ -31,7 +32,7 @@ const Login = () => {
     console.log(input);
     try {
       dispatch(setLoading(true))
-      const res = await axios.post(`${BASE_URL_FOR_USER}login`, input, {
+      const res = await axios.post(`${api}/api/v1/user/login`, input, {
         headers: { "Content-Type": "application/json" },
         withCredentials: true
       });
@@ -43,6 +44,7 @@ const Login = () => {
       }
       console.log(res.data);
     } catch (error) {
+      console.log(error);
       console.log(error);
       toast.error(error.response?.data?.message || 'An error occurred 👿');
     } finally {
